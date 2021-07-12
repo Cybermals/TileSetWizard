@@ -35,3 +35,4 @@ func get_texture_atlas_path():
 func get_tile_size():
 	#Return the selected tile size
 	return get_node("TileSize").get_value()
+

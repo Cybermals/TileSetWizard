@@ -27,14 +27,14 @@ func _on_AtlasSelectScreen_next():
 	for y in range(tex_size.y / tile_size):
 		for x in range(tex_size.x / tile_size):
 			#Update rect
-			rect.pos.x = x * tile_size
-			rect.pos.y = y * tile_size
+			rect.position.x = x * tile_size
+			rect.position.y = y * tile_size
 			
 			#Create new tile
 			var tile = Tile.instance()
 			get_node("TileCollection").add_child(tile)
 			tile.set_name("Tile_" + str(x) + "_" + str(y))
-			tile.set_pos(rect.pos)
+			tile.set_position(rect.position)
 			tile.add_to_group("tiles")
 			tile.set_texture(atlas_tex)
 			tile.set_region_rect(rect)
@@ -98,3 +98,4 @@ func save_scene(path):
 	var scene = PackedScene.new()
 	scene.pack(get_node("TileCollection"))
 	return ResourceSaver.save(path, scene, ResourceSaver.FLAG_RELATIVE_PATHS)
+

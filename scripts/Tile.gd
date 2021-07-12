@@ -43,7 +43,7 @@ func set_collision_shape(shape):
 		
 	elif shape == "slope-L":
 		shape_obj = ConvexPolygonShape2D.new()
-		shape_obj.set_points(Vector2Array([
+		shape_obj.set_points(PoolVector2Array([
 		    Vector2(left, bottom),
 		    Vector2(right, bottom),
 		    Vector2(right, top)
@@ -51,7 +51,7 @@ func set_collision_shape(shape):
 		
 	elif shape == "slope-R":
 		shape_obj = ConvexPolygonShape2D.new()
-		shape_obj.set_points(Vector2Array([
+		shape_obj.set_points(PoolVector2Array([
 		    Vector2(left, top),
 		    Vector2(left, bottom),
 		    Vector2(right, bottom)

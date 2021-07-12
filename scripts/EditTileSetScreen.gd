@@ -73,3 +73,4 @@ func update_tiles(tiles):
 		
 		#Add item to tile list
 		get_node("TileList").add_item(tile.get_name() + " (" + tile.shape + ")", atlas)
+
