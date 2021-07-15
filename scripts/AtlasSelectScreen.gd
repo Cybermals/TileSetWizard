@@ -9,6 +9,11 @@ func _ready():
 func _on_ChooseButton_pressed():
 	#Display file dialog
 	get_node("FileDialog").popup()
+	
+	
+func _on_AboutButton_pressed():
+	#Show about box
+	get_node("AboutBox").show_about_box()
 
 
 func _on_NextButton_pressed():

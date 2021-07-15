@@ -6,43 +6,26 @@
 [ext_resource path="res://scenes/EditTileSetScreen.tscn" type="PackedScene" id=4]
 
 [node name="Main" type="Node"]
-
 script = ExtResource( 1 )
 Tile = ExtResource( 2 )
 
 [node name="AtlasSelectScreen" parent="." instance=ExtResource( 3 )]
 
-
 [node name="EditTileSetScreen" parent="." instance=ExtResource( 4 )]
-
 visible = false
 
 [node name="TileCollection" type="Node2D" parent="."]
-
 visible = false
 
 [node name="ErrorDialog" type="AcceptDialog" parent="."]
-
-visible = false
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags_horizontal = 1
-size_flags_vertical = 1
 margin_left = 40.0
 margin_top = 50.0
 margin_right = 980.0
 margin_bottom = 560.0
-popup_exclusive = false
 window_title = "Error"
-dialog_hide_on_ok = true
-mouse_filter = 0
 
-[connection signal="next" from="AtlasSelectScreen" to="." method="_on_AtlasSelectScreen_next" binds=[  ]]
-
-[connection signal="back" from="EditTileSetScreen" to="." method="_on_EditTileSetScreen_back" binds=[  ]]
-
-[connection signal="export_tileset" from="EditTileSetScreen" to="." method="_on_EditTileSetScreen_export_tileset" binds=[  ]]
-
-[connection signal="set_tile_name" from="EditTileSetScreen" to="." method="_on_EditTileSetScreen_set_tile_name" binds=[  ]]
-
-[connection signal="set_tile_shape" from="EditTileSetScreen" to="." method="_on_EditTileSetScreen_set_tile_shape" binds=[  ]]
+[connection signal="next" from="AtlasSelectScreen" to="." method="_on_AtlasSelectScreen_next"]
+[connection signal="back" from="EditTileSetScreen" to="." method="_on_EditTileSetScreen_back"]
+[connection signal="export_tileset" from="EditTileSetScreen" to="." method="_on_EditTileSetScreen_export_tileset"]
+[connection signal="set_tile_name" from="EditTileSetScreen" to="." method="_on_EditTileSetScreen_set_tile_name"]
+[connection signal="set_tile_shape" from="EditTileSetScreen" to="." method="_on_EditTileSetScreen_set_tile_shape"]

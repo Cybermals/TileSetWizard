@@ -47,7 +47,7 @@ func _on_AtlasSelectScreen_next():
 
 func _on_EditTileSetScreen_back():
 	#Mark all tiles to be freed
-	get_tree().call_group(get_tree().GROUP_CALL_DEFAULT, "tiles", "queue_free")
+	get_tree().call_group("tiles", "queue_free")
 	
 	#Switch to atlas select screen
 	get_node("EditTileSetScreen").hide()
@@ -56,7 +56,7 @@ func _on_EditTileSetScreen_back():
 
 func _on_EditTileSetScreen_export_tileset(path):
 	#Save the tileset scene
-	if !save_scene(path):
+	if save_scene(path) != OK:
 		show_error("Failed to export tileset '" + path + "'")
 		return
 	
@@ -84,7 +84,7 @@ func show_error(msg):
 func _set_owner(node, owner):
 	#Set the owner of the node
 	if node != owner:
-	    node.set_owner(owner)
+		node.set_owner(owner)
 	
 	#Set the owner of all child nodes too
 	for child in node.get_children():

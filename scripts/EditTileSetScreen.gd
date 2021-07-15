@@ -37,7 +37,7 @@ func _on_RenameButton_pressed():
 	var tile_id = get_node("TileList").get_selected_items()[0]
 	var text = get_node("TileList").get_item_text(tile_id)
 	var parts = text.split(" ")
-	var name = get_node("TileName").get_text().replace(" ", "_")
+	var name = get_node("TileName").get_text()
 	var shape = parts[1].substr(1, parts[1].length() - 2)
 	get_node("TileList").set_item_text(tile_id, name + " (" + shape + ")")
 	emit_signal("set_tile_name", tile_id, name)

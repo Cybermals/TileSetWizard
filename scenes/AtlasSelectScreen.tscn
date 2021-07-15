@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scripts/AtlasSelectScreen.gd" type="Script" id=1]
 [ext_resource path="res://fonts/Oxanium-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://scenes/AboutBox.tscn" type="PackedScene" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 
@@ -129,16 +130,34 @@ margin_left = 220.0
 margin_top = 310.0
 margin_right = 294.0
 margin_bottom = 334.0
-min_value = 4.0
+min_value = 16.0
 max_value = 64.0
 step = 2.0
 page = 0.0
-value = 64.0
+value = 16.0
 exp_edit = false
 rounded = false
 editable = true
 prefix = ""
 suffix = ""
+mouse_filter = 0
+
+[node name="AboutButton" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags_horizontal = 1
+size_flags_vertical = 1
+margin_left = 410.0
+margin_top = 520.0
+margin_right = 472.0
+margin_bottom = 545.0
+custom_fonts/font = SubResource( 2 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "About"
+flat = false
 mouse_filter = 0
 
 [node name="NextButton" type="Button" parent="."]
@@ -179,7 +198,12 @@ filters = PoolStringArray( "*.png;PNG", "*.jpg;JPG", "*.jpeg;JPEG", "*.gif;GIF",
 show_hidden_files = false
 mouse_filter = 0
 
+[node name="AboutBox" parent="." instance=ExtResource( 3 )]
+
+
 [connection signal="pressed" from="ChooseButton" to="." method="_on_ChooseButton_pressed" binds=[  ]]
+
+[connection signal="pressed" from="AboutButton" to="." method="_on_AboutButton_pressed" binds=[  ]]
 
 [connection signal="pressed" from="NextButton" to="." method="_on_NextButton_pressed" binds=[  ]]
 
