@@ -56,7 +56,7 @@ func _on_EditTileSetScreen_back():
 
 func _on_EditTileSetScreen_export_tileset(path):
 	#Save the tileset scene
-	if !save_scene(path):
+	if save_scene(path):
 		show_error("Failed to export tileset '" + path + "'")
 		return
 	

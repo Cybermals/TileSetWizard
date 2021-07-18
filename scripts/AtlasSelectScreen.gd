@@ -3,7 +3,9 @@ signal next
 
 
 func _ready():
-	pass
+	#Set file dialog path to the user's documents folder
+	var docs_dir = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
+	get_node("FileDialog").set_current_dir(docs_dir)
 
 
 func _on_ChooseButton_pressed():
