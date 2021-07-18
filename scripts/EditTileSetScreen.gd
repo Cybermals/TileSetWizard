@@ -4,13 +4,25 @@ signal export_tileset(path)
 signal set_tile_name(idx, name)
 signal set_tile_shape(idx, shape)
 
-var tile_shapes = ["square", "slope-L", "slope-R"]
+var tile_shapes = [
+    "square", 
+    "slope-L", 
+    "slope-R",
+    "gentle-slope1-L",
+    "gentle-slope2-L",
+    "gentle-slope1-R",
+    "gentle-slope2-R"
+]
 
 
 func _ready():
 	#Populate tile shapes
 	for shape in tile_shapes:
 		get_node("TileShapes").add_item(shape)
+		
+	#Set export dialog path to the user's documents dir
+	var dir = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
+	get_node("ExportDialog").set_current_dir(dir)
 
 
 func _on_BackButton_pressed():

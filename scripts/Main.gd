@@ -10,7 +10,8 @@ func _ready():
 func _on_AtlasSelectScreen_next():
 	#Try to load atlas texture
 	var path = get_node("AtlasSelectScreen").get_texture_atlas_path()
-	var atlas_tex = load(path)
+	var atlas_tex = ImageTexture.new()
+	atlas_tex.load(path)
 	
 	if atlas_tex == null:
 		#Report error
@@ -56,7 +57,7 @@ func _on_EditTileSetScreen_back():
 
 func _on_EditTileSetScreen_export_tileset(path):
 	#Save the tileset scene
-	if save_scene(path) != OK:
+	if save_scene(path):
 		show_error("Failed to export tileset '" + path + "'")
 		return
 	

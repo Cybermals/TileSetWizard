@@ -57,5 +57,39 @@ func set_collision_shape(shape):
 		    Vector2(right, bottom)
 		]))
 		
+	elif shape == "gentle-slope1-L":
+		shape_obj = ConvexPolygonShape2D.new()
+		shape_obj.set_points(PoolVector2Array([
+		    Vector2(left, bottom),
+		    Vector2(right, bottom),
+		    Vector2(right, 0)
+		]))
+		
+	elif shape == "gentle-slope2-L":
+		shape_obj = ConvexPolygonShape2D.new()
+		shape_obj.set_points(PoolVector2Array([
+		    Vector2(left, 0),
+		    Vector2(left, bottom),
+		    Vector2(right, bottom),
+		    Vector2(right, top)
+		]))
+		
+	elif shape == "gentle-slope1-R":
+		shape_obj = ConvexPolygonShape2D.new()
+		shape_obj.set_points(PoolVector2Array([
+		    Vector2(left, top),
+		    Vector2(left, bottom),
+		    Vector2(right, bottom),
+		    Vector2(right, 0)
+		]))
+		
+	elif shape == "gentle-slope2-R":
+		shape_obj = ConvexPolygonShape2D.new()
+		shape_obj.set_points(PoolVector2Array([
+		    Vector2(left, 0),
+		    Vector2(left, bottom),
+		    Vector2(right, bottom)
+		]))
+		
 	get_node("CollisionShape2D").set_shape(shape_obj)
 	self.shape = shape
