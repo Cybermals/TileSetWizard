@@ -1,0 +1,183 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://themes/Default.tres" type="Theme" id=1]
+[ext_resource path="res://scripts/TileEditScreen.gd" type="Script" id=2]
+
+[node name="TileEditScreen" type="Control"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+theme/theme = ExtResource( 1 )
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 984.0
+margin/bottom = 560.0
+script/script = ExtResource( 2 )
+
+[node name="TitleLabel" type="Label" parent="."]
+
+anchor/right = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = -984.0
+margin/bottom = 28.0
+text = "Edit TileSet"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="TilesLabel" type="Label" parent="."]
+
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -230.0
+margin/top = -50.0
+margin/right = -302.0
+margin/bottom = -80.0
+text = "Tiles:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Tiles" type="ItemList" parent="."]
+
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -230.0
+margin/top = -80.0
+margin/right = -750.0
+margin/bottom = -490.0
+
+[node name="TileShapeLabel" type="Label" parent="."]
+
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -760.0
+margin/top = -50.0
+margin/right = -892.0
+margin/bottom = -80.0
+text = "Tile Shape:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="TileShape" type="OptionButton" parent="."]
+
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -760.0
+margin/top = -90.0
+margin/right = -980.0
+margin/bottom = -124.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "square"
+flat = false
+align = 0
+selected = 0
+items = [ "square", null, false, -1, null, "slope-L", null, false, -1, null, "slope-R", null, false, -1, null, "gentle-slope-1L", null, false, -1, null, "gentle-slope-2L", null, false, -1, null, "gentle-slope-1R", null, false, -1, null, "gentle-slope-2R", null, false, -1, null ]
+
+[node name="BackButton" type="Button" parent="."]
+
+anchor/left = 3
+anchor/top = 1
+anchor/right = 3
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -420.0
+margin/top = -490.0
+margin/right = -492.0
+margin/bottom = -524.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "<Back"
+flat = false
+
+[node name="SaveButton" type="Button" parent="."]
+
+anchor/left = 3
+anchor/top = 1
+anchor/right = 3
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -500.0
+margin/top = -490.0
+margin/right = -560.0
+margin/bottom = -524.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Save"
+flat = false
+
+[node name="FileDialog" type="FileDialog" parent="."]
+
+visibility/visible = false
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 40.0
+margin/top = 60.0
+margin/right = 980.0
+margin/bottom = 560.0
+popup/exclusive = false
+window/title = "Save a File"
+dialog/hide_on_ok = false
+mode = 4
+access = 2
+filters = StringArray( "*.tres;TileSet Resource" )
+show_hidden_files = false
+
+[connection signal="item_selected" from="Tiles" to="." method="_on_Tiles_item_selected"]
+
+[connection signal="item_selected" from="TileShape" to="." method="_on_TileShape_item_selected"]
+
+[connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
+
+[connection signal="pressed" from="SaveButton" to="." method="_on_SaveButton_pressed"]
+
+[connection signal="file_selected" from="FileDialog" to="." method="_on_FileDialog_file_selected"]
+
+
