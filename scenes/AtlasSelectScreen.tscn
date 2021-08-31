@@ -1,97 +1,94 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=4 format=1]
 
-[ext_resource path="res://scripts/AtlasSelectScreen.gd" type="Script" id=1]
-[ext_resource path="res://fonts/Oxanium-Regular.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://scenes/AboutBox.tscn" type="PackedScene" id=3]
-
-[sub_resource type="DynamicFont" id=1]
-
-font/size = 32
-font/use_mipmaps = false
-font/use_filter = false
-font/font = ExtResource( 2 )
-
-[sub_resource type="DynamicFont" id=2]
-
-font/size = 18
-font/use_mipmaps = false
-font/use_filter = false
-font/font = ExtResource( 2 )
+[ext_resource path="res://themes/Default.tres" type="Theme" id=1]
+[ext_resource path="res://scripts/AtlasSelectScreen.gd" type="Script" id=2]
+[ext_resource path="res://scenes/AboutDialog.tscn" type="PackedScene" id=3]
 
 [node name="AtlasSelectScreen" type="Control"]
 
+anchor/right = 1
+anchor/bottom = 1
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+theme/theme = ExtResource( 1 )
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 0.0
-margin/bottom = 0.0
-script/script = ExtResource( 1 )
+margin/right = 984.0
+margin/bottom = 560.0
+script/script = ExtResource( 2 )
 
 [node name="TitleLabel" type="Label" parent="."]
 
+anchor/right = 1
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 1020.0
-margin/bottom = 60.0
-custom_fonts/font = SubResource( 1 )
+margin/right = -984.0
+margin/bottom = 28.0
 text = "Select Texture Atlas"
 align = 1
-valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="PathLabel" type="Label" parent="."]
+[node name="AtlasPath" type="LineEdit" parent="."]
 
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 50.0
-margin/top = 270.0
-margin/right = 209.0
-margin/bottom = 300.0
-custom_fonts/font = SubResource( 2 )
-text = "Texture Atlas Path:"
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="TextureAtlasPath" type="LineEdit" parent="."]
-
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 220.0
-margin/top = 270.0
-margin/right = 830.0
-margin/bottom = 299.0
-custom_fonts/font = SubResource( 2 )
+margin/left = -250.0
+margin/top = -240.0
+margin/right = -740.0
+margin/bottom = -278.0
 placeholder/alpha = 0.6
 focus_mode = 2
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
 
+[node name="AtlasPathLabel" type="Label" parent="."]
+
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -110.0
+margin/top = -240.0
+margin/right = -242.0
+margin/bottom = -280.0
+text = "Atlas Path:"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
 [node name="ChooseButton" type="Button" parent="."]
 
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 840.0
-margin/top = 270.0
-margin/right = 915.0
-margin/bottom = 295.0
-custom_fonts/font = SubResource( 2 )
+margin/left = -750.0
+margin/top = -240.0
+margin/right = -834.0
+margin/bottom = -274.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -106,10 +103,10 @@ size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 140.0
 margin/top = 310.0
-margin/right = 212.0
-margin/bottom = 330.0
-custom_fonts/font = SubResource( 2 )
+margin/right = 260.0
+margin/bottom = 350.0
 text = "Tile Size:"
+valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -120,11 +117,11 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 220.0
+margin/left = 270.0
 margin/top = 310.0
-margin/right = 294.0
-margin/bottom = 334.0
-range/min = 16.0
+margin/right = 440.0
+margin/bottom = 348.0
+range/min = 8.0
 range/max = 64.0
 range/step = 2.0
 range/page = 0.0
@@ -133,19 +130,22 @@ range/exp_edit = false
 range/rounded = false
 editable = true
 prefix = ""
-suffix = ""
+suffix = "pixels"
 
 [node name="AboutButton" type="Button" parent="."]
 
+anchor/left = 3
+anchor/top = 1
+anchor/right = 3
+anchor/bottom = 1
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 410.0
-margin/top = 520.0
-margin/right = 472.0
-margin/bottom = 545.0
-custom_fonts/font = SubResource( 2 )
+margin/left = -410.0
+margin/top = -460.0
+margin/right = -482.0
+margin/bottom = -494.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -154,19 +154,22 @@ flat = false
 
 [node name="NextButton" type="Button" parent="."]
 
+anchor/left = 3
+anchor/top = 1
+anchor/right = 3
+anchor/bottom = 1
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 480.0
-margin/top = 520.0
-margin/right = 545.0
-margin/bottom = 545.0
-custom_fonts/font = SubResource( 2 )
+margin/left = -490.0
+margin/top = -460.0
+margin/right = -562.0
+margin/bottom = -494.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-text = "Next >"
+text = "Next>"
 flat = false
 
 [node name="FileDialog" type="FileDialog" parent="."]
@@ -176,19 +179,19 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 30.0
-margin/top = 50.0
-margin/right = 990.0
+margin/left = 40.0
+margin/top = 60.0
+margin/right = 980.0
 margin/bottom = 560.0
 popup/exclusive = false
 window/title = "Open a File"
 dialog/hide_on_ok = false
 mode = 0
 access = 2
-filters = StringArray( "*.png;PNG", "*.jpg;JPG", "*.jpeg;JPEG", "*.gif;GIF", "*.bmp;BMP" )
+filters = StringArray( "*.bmp;Bitmap Images", "*.png;PNG Images", "*.jpg;JPEG Images", "*.jpeg;JPEG Images" )
 show_hidden_files = false
 
-[node name="AboutBox" parent="." instance=ExtResource( 3 )]
+[node name="AboutDialog" parent="." instance=ExtResource( 3 )]
 
 [connection signal="pressed" from="ChooseButton" to="." method="_on_ChooseButton_pressed"]
 

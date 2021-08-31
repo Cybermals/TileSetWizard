@@ -1,22 +1,17 @@
 [gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://scripts/Main.gd" type="Script" id=1]
-[ext_resource path="res://scenes/Tile.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/AtlasSelectScreen.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/EditTileSetScreen.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/AtlasSelectScreen.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/TileEditScreen.tscn" type="PackedScene" id=3]
+[ext_resource path="res://themes/Default.tres" type="Theme" id=4]
 
 [node name="Main" type="Node"]
 
 script/script = ExtResource( 1 )
-Tile = ExtResource( 2 )
 
-[node name="AtlasSelectScreen" parent="." instance=ExtResource( 3 )]
+[node name="AtlasSelectScreen" parent="." instance=ExtResource( 2 )]
 
-[node name="EditTileSetScreen" parent="." instance=ExtResource( 4 )]
-
-visibility/visible = false
-
-[node name="TileCollection" type="Node2D" parent="."]
+[node name="TileEditScreen" parent="." instance=ExtResource( 3 )]
 
 visibility/visible = false
 
@@ -27,22 +22,21 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+theme/theme = ExtResource( 4 )
 margin/left = 40.0
-margin/top = 50.0
+margin/top = 60.0
 margin/right = 980.0
 margin/bottom = 560.0
 popup/exclusive = false
 window/title = "Error"
 dialog/hide_on_ok = true
 
-[connection signal="next" from="AtlasSelectScreen" to="." method="_on_AtlasSelectScreen_next"]
+[connection signal="load_atlas" from="AtlasSelectScreen" to="." method="_on_AtlasSelectScreen_load_atlas"]
 
-[connection signal="back" from="EditTileSetScreen" to="." method="_on_EditTileSetScreen_back"]
+[connection signal="back" from="TileEditScreen" to="." method="_on_TileEditScreen_back"]
 
-[connection signal="export_tileset" from="EditTileSetScreen" to="." method="_on_EditTileSetScreen_export_tileset"]
+[connection signal="save" from="TileEditScreen" to="." method="_on_TileEditScreen_save"]
 
-[connection signal="set_tile_name" from="EditTileSetScreen" to="." method="_on_EditTileSetScreen_set_tile_name"]
-
-[connection signal="set_tile_shape" from="EditTileSetScreen" to="." method="_on_EditTileSetScreen_set_tile_shape"]
+[connection signal="set_tile_shape" from="TileEditScreen" to="." method="_on_TileEditScreen_set_tile_shape"]
 
 

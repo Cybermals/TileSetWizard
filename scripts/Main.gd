@@ -1,100 +1,148 @@
 extends Node
 
-export (PackedScene) var Tile
+var tileset
+var shapes = []
 
 
 func _ready():
 	pass
 
 
-func _on_AtlasSelectScreen_next():
-	#Try to load atlas texture
-	var path = get_node("AtlasSelectScreen").get_texture_atlas_path()
-	var atlas_tex = load(path)
+func _on_AtlasSelectScreen_load_atlas(path, tile_size):
+	#Load texture atlas image
+	var tex = load(path)
 	
-	if atlas_tex == null:
-		#Report error
-		show_error("Failed to load image '" + path + "'")
+	if tex == null:
+		show_error("Failed to open image '" + path + "'.")
 		return
 		
-	#Get texture size and tile size
-	var tex_size = atlas_tex.get_size()
-	var tile_size = get_node("AtlasSelectScreen").get_tile_size()
+	#Get texture size
+	var size = tex.get_size()
 	
-	#Generate tiles
-	var rect = Rect2(0, 0, tile_size, tile_size)
+	#Generate tile collision shapes
+	var left = 0
+	var top = 0
+	var right = tile_size
+	var bottom = tile_size
 	
-	for y in range(tex_size.y / tile_size):
-		for x in range(tex_size.x / tile_size):
-			#Update rect
-			rect.pos.x = x * tile_size
-			rect.pos.y = y * tile_size
+	var square = ConvexPolygonShape2D.new()
+	square.set_points(Vector2Array([
+	    Vector2(left, bottom),
+	    Vector2(left, top),
+	    Vector2(right, top),
+	    Vector2(right, bottom)
+	]))
+	
+	var slope_L = ConvexPolygonShape2D.new()
+	slope_L.set_points(Vector2Array([
+	    Vector2(left, bottom),
+	    Vector2(right, top),
+	    Vector2(right, bottom)
+	]))
+	
+	var slope_R = ConvexPolygonShape2D.new()
+	slope_R.set_points(Vector2Array([
+	    Vector2(left, bottom),
+	    Vector2(left, top),
+	    Vector2(right, bottom)
+	]))
+	
+	var gentle_slope_1L = ConvexPolygonShape2D.new()
+	gentle_slope_1L.set_points(Vector2Array([
+	    Vector2(left, bottom),
+	    Vector2(right, bottom / 2),
+	    Vector2(right, bottom)
+	]))
+	
+	var gentle_slope_2L = ConvexPolygonShape2D.new()
+	gentle_slope_2L.set_points(Vector2Array([
+	    Vector2(left, bottom),
+	    Vector2(left, bottom / 2),
+	    Vector2(right, top),
+	    Vector2(right, bottom)
+	]))
+	
+	var gentle_slope_1R = ConvexPolygonShape2D.new()
+	gentle_slope_1R.set_points(Vector2Array([
+	    Vector2(left, bottom),
+	    Vector2(left, top),
+	    Vector2(right, bottom / 2),
+	    Vector2(right, bottom)
+	]))
+	
+	var gentle_slope_2R = ConvexPolygonShape2D.new()
+	gentle_slope_2R.set_points(Vector2Array([
+	    Vector2(left, bottom),
+	    Vector2(left, bottom / 2),
+	    Vector2(right, bottom)
+	]))
+	
+	shapes = [
+	    square,
+	    slope_L,
+	    slope_R,
+	    gentle_slope_1L,
+	    gentle_slope_2L,
+	    gentle_slope_1R,
+	    gentle_slope_2R
+	]
+	
+	#Generate default tileset
+	tileset = TileSet.new()
+	var id = 0
+	
+	for y in range(size.y / tile_size):
+		for x in range(size.x / tile_size):
+			#Create a new tile
+			tileset.create_tile(id)
+			tileset.tile_set_name(id, "Tile_" + str(x) + "_" + 
+			    str(y))
+			tileset.tile_set_texture(id, tex)
+			tileset.tile_set_region(
+			    id,
+			    Rect2(
+			        x * tile_size, 
+			        y * tile_size, 
+			        tile_size, 
+			        tile_size
+			    )
+			)
+			tileset.tile_set_shape(id, shapes[0])
 			
-			#Create new tile
-			var tile = Tile.instance()
-			get_node("TileCollection").add_child(tile)
-			tile.set_name("Tile_" + str(x) + "_" + str(y))
-			tile.set_pos(rect.pos)
-			tile.add_to_group("tiles")
-			tile.set_texture(atlas_tex)
-			tile.set_region_rect(rect)
+			#Next tile ID
+			id += 1
+			
+	#Update tile list
+	get_node("TileEditScreen").update_tiles(tileset)
 	
-	#Switch to edit tileset screen
+	#Switch to tile edit screen
 	get_node("AtlasSelectScreen").hide()
-	get_node("EditTileSetScreen").show()
-	get_node("EditTileSetScreen").update_tiles(get_node("TileCollection"))
-
-
-func _on_EditTileSetScreen_back():
-	#Mark all tiles to be freed
-	get_tree().call_group(get_tree().GROUP_CALL_DEFAULT, "tiles", "queue_free")
-	
-	#Switch to atlas select screen
-	get_node("EditTileSetScreen").hide()
-	get_node("AtlasSelectScreen").show()
-
-
-func _on_EditTileSetScreen_export_tileset(path):
-	#Save the tileset scene
-	if !save_scene(path):
-		show_error("Failed to export tileset '" + path + "'")
-		return
-	
-	#Return to atlas select screen
-	get_node("EditTileSetScreen").hide()
-	get_node("AtlasSelectScreen").show()
-	
-	
-func _on_EditTileSetScreen_set_tile_name(idx, name):
-	#Rename the given tile
-	get_node("TileCollection").get_child(idx).set_name(name)
-
-
-func _on_EditTileSetScreen_set_tile_shape(idx, shape):
-	#Set the shape of the given tile
-	get_node("TileCollection").get_child(idx).set_collision_shape(shape)
-	
-	
+	get_node("TileEditScreen").show()
+		
+		
 func show_error(msg):
-	#Set error text and display error dialog
+	#Show error message
 	get_node("ErrorDialog").set_text(msg)
 	get_node("ErrorDialog").popup()
-	
-	
-func _set_owner(node, owner):
-	#Set the owner of the node
-	if node != owner:
-	    node.set_owner(owner)
-	
-	#Set the owner of all child nodes too
-	for child in node.get_children():
-		_set_owner(child, owner)
+
+
+func _on_TileEditScreen_set_tile_shape(tile_id, shape_id):
+	#Set new collision shape
+	tileset.tile_set_shape(tile_id, shapes[shape_id])
+
+
+func _on_TileEditScreen_back():
+	#Switch to atlas select screen
+	get_node("TileEditScreen").hide()
+	get_node("AtlasSelectScreen").show()
+
+
+func _on_TileEditScreen_save(path):
+	#Save tileset
+	if ResourceSaver.save(path, tileset, 
+	    ResourceSaver.FLAG_BUNDLE_RESOURCES):
+		show_error("Failed to save tileset '" + path + "'.")
+		return
 		
-		
-func save_scene(path):
-	#Save the tile collection as a scene
-	var root = get_node("TileCollection")
-	_set_owner(root, root)
-	var scene = PackedScene.new()
-	scene.pack(get_node("TileCollection"))
-	return ResourceSaver.save(path, scene, ResourceSaver.FLAG_RELATIVE_PATHS)
+	#Switch back to atlas select screen
+	_on_TileEditScreen_back()
